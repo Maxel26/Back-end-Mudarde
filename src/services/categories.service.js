@@ -12,7 +12,7 @@ const reformCategory =  async (categoryId, updateData) => {
    return await Category.findOneAndUpdate(
         {_id: categoryId},    // 1. Encontrar la categoria (_id)
         updateData,               // 2. Los datos (objeto) por el que voy a remplazar los valores existentes
-        {new : true}                // 3.(opcional) Establecer una config sobre la consulta
+        {new : true} //pa que muestre los valores actualizados  // 3.(opcional) Establecer una config sobre la consulta
     );
 };
 
