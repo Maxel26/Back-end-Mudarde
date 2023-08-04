@@ -6,7 +6,11 @@ const insertProduct = async ( product ) => {
 }
 
 const getAllProducts = async () => {
-    return await ProductModel.find({});
+    return await ProductModel.find({quantity: {$gt : 0 }}); // sintaxsis de moongose para decirle que la propiedad quantity sea mayor a 0
+}
+
+const getProductsByFamily = async (family) => {
+    return await ProductModel.find({family})
 }
 
 const getProductByID = async ( productId ) => {
@@ -43,6 +47,7 @@ const updateProductByID = async ( productId, updateProduct ) => {
 module.exports = {
     insertProduct,
     getAllProducts,
+    getProductsByFamily,
     getProductByID,
     removeProductByID,
     updateProductByID,

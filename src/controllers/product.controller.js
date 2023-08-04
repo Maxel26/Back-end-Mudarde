@@ -2,7 +2,7 @@ const { response, request } = require( 'express' );
 const { hashSync, genSaltSync, compareSync } = require( 'bcryptjs' );
 
 const { generateToken } = require( '../helpers/jwt.js' );
-const { insertProduct, getAllProducts, getProductByID, updateProductByID, removeProductByID, getProductByUserID } = require( '../services/product.service' );
+const { insertProduct, getAllProducts, getProductByID, updateProductByID, removeProductByID, getProductByUserID, getProductsByFamily } = require( '../services/product.service' );
 
 const User = require( '../models/User' );
 
@@ -28,6 +28,26 @@ const getProducts = async ( req = request, res = response ) => {
         });    
     }
 
+}
+
+const getProductsByFamil = async (req = request, res = response) => {
+    try {
+        const data = await getProductsByFamily(req.params.family)
+
+        res.status(201).json({
+            ok: true,
+            path: '/products',
+            msg: 'Obtiene productos por familia',
+            products: data
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            ok: false,
+            path: '/products',
+            msg: 'Error al obtener los productos por familia'
+        })
+    }
 }
 
 const getProductById = async ( req = request, res = response ) => {
@@ -164,6 +184,7 @@ const deleteProduct = async ( req = request, res = response ) => {
 
 module.exports = {
     getProducts,
+    getProductsByFamil,
     createProduct,
     getProductById,
     updateProduct,

@@ -6,34 +6,23 @@ const { Schema, model } = require( 'mongoose' );
 const productSchema = new Schema(
     // Objeto principal definira atributos del modelo
     {
-        name: {
-            type: String,
-            required: true
-        },
-        price: {
-            type: Number,
-            required: false
+        family: {
+            type : String,
+            required : true
         },
         urlImage: {
             type: String,
             required: false
         },
-        description: {
-            type: String
-        },
-        quantity: {
-            type: Number,
+        name: {
+            type: String,
             required: true
         },
-        ranking: {
-            type: Number,
-            default: 0
-        },
-        /** Atributos vinculantes */
-        category: {
+        description: {
             type: String,
-            default: 'Uncategorized'
-        }, 
+            required: false
+        },
+        /** Atributos vinculantes */ 
         userId: {
             type: String,
             required: true

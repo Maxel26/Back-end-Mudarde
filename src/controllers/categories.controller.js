@@ -11,7 +11,7 @@ const getAllCategories = async (req,res) => {
             ok : true,
             path : '/categories',                       //lo que le ENVIAMOS al FRONT
             msg : 'Obtener todas las categorias ',
-            products: data
+            categories: data
         });
     } catch (error) {
         console.error(error);
