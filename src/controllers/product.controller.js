@@ -31,9 +31,10 @@ const getProducts = async ( req = request, res = response ) => {
 }
 
 const getProductsByFamil = async (req = request, res = response) => {
+    const familyProd = req.params.family;
     try {
-        const data = await getProductsByFamily(req.params.family)
-
+        const data = await getProductsByFamily(familyProd)
+        console.log(data);
         res.status(201).json({
             ok: true,
             path: '/products',
