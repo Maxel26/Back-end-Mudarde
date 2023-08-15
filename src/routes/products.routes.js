@@ -1,14 +1,22 @@
 const { Router } = require( 'express' );
-const { createUser, loginUser, renewToken } = require('../controllers/auth.controller');
-const { check } = require('express-validator');
-const validateInputFields = require('../middlewares/validate-input-fields.middleware');
 const { validateToken } = require('../middlewares/validate-jwt.middleware');
-const { getProducts, createProduct, getProductById, updateProduct, deleteProduct, getProductsByUserId, getProductsByFamil } = require('../controllers/product.controller');
+const { getProducts, createProduct, getProductById, updateProduct, deleteProduct, getProductsByUserId, getProductsByFamil, create2Product } = require('../controllers/product.controller');
+
+const {  multerMiddleware  } = require( '../middlewares/upload-file-2.middleware');
 
 const router = Router();
 
+const testUpload = (req, res, next) => {
+    multerMiddleware.single('urlImage')(req, res, (err) => {
+      if (err) {
+        console.log('Multer error:', err);
+      }
+      next();
+    });
+  };
+
 /** 
- * Ruta actual: http://localhost:5000/api/products
+ * Ruta actual: http://localhost:3000/api/products
  */
 
 // Ruta para obtener todos los productos
@@ -39,8 +47,15 @@ router.get(
 router.post( 
     '/', 
     validateToken,
-    createProduct
+    multerMiddleware.single( 'urlImage' ),
+    create2Product
 );
+
+// router.post( 
+//     '/', 
+//     validateToken,
+//     createProduct
+// );
 
 // Ruta para actualizar producto (Restringida)
 router.patch( 

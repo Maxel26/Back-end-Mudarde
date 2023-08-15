@@ -30,7 +30,7 @@ const productSchema = new Schema(
     },
     // Definira configuraciones que se pueden aplicar en Mongoose para ese objeto
     {
-        timestamps: true
+        timestamps: true // hora creacion y modificacion
     }
 );
 

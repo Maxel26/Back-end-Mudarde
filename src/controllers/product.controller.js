@@ -2,7 +2,7 @@ const { response, request } = require( 'express' );
 const { hashSync, genSaltSync, compareSync } = require( 'bcryptjs' );
 
 const { generateToken } = require( '../helpers/jwt.js' );
-const { insertProduct, getAllProducts, getProductByID, updateProductByID, removeProductByID, getProductByUserID, getProductsByFamily } = require( '../services/product.service' );
+const { insertProduct, getAllProducts, getProductByID, updateProductByID, removeProductByID, getProductByUserID, getProductsByFamily, insert2Product } = require( '../services/product.service' );
 
 const User = require( '../models/User' );
 
@@ -126,6 +126,46 @@ const createProduct = async ( req = request, res = response ) => {
 
 }
 
+const create2Product = async ( req = request, res = response ) => {
+    const URL =`${ req.protocol }://${ req.get( 'host' )}`;
+    const userId = req.authUser.uid;
+
+    const inputData = req.body;
+
+    console.log(req.body);
+
+    const newProduct = {
+        name: inputData.name,
+        description: inputData.description,
+        family: inputData.family,
+        userId,
+        urlImage: `${ URL }/uploads/${ req.file.filename }`
+    };
+
+
+    try {
+        const data = await insert2Product( newProduct );
+    
+        // Devuelve una respuesta adecuada al cliente
+        res.status( 200 ).json({
+            ok: true,
+            path: '/products',
+            msg: 'Producto creado exitosamente',
+            product: data
+        }); 
+    } 
+    catch ( error ) {
+        console.log( error );
+        return res.status( 500 ).json({
+            ok: false,
+            path: '/products',
+            msg: 'Error al crear producto'
+        });   
+    }
+
+
+}
+
 const updateProduct = async ( req = request, res = response ) => {
     const 
         productId = req.params.id,
@@ -187,6 +227,7 @@ module.exports = {
     getProducts,
     getProductsByFamil,
     createProduct,
+    create2Product,
     getProductById,
     updateProduct,
     deleteProduct,
