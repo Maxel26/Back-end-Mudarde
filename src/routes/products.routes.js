@@ -1,6 +1,6 @@
 const { Router } = require( 'express' );
 const { validateToken } = require('../middlewares/validate-jwt.middleware');
-const { getProducts, createProduct, getProductById, updateProduct, deleteProduct, getProductsByUserId, getProductsByFamil, create2Product } = require('../controllers/product.controller');
+const { getProducts, getProductById, updateProduct, deleteProduct, getProductsByUserId, getProductsByFamil, create2Product } = require('../controllers/product.controller');
 
 const {  multerMiddleware  } = require( '../middlewares/upload-file-2.middleware');
 
