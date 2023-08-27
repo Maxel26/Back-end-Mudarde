@@ -23,6 +23,7 @@ app.use( '/api/categories', require( './routes/categories.routes' ) );
 app.use('/api/inicio', require('./routes/inicio.routes'));
 app.use( '/api/questions', require ('./routes/questions.routes')); 
 app.use( '/api/cards', require ('./routes/cards.routes') );
+app.use( '/api/file', require ('./routes/file.routes') );
 
 dbConnection();                 // Invoca la inicializacion de la base de datos
 

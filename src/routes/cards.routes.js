@@ -5,7 +5,7 @@ const {validateToken} = require ('../middlewares/validate-jwt.middleware');
 // todo: modificar la importación de los controladores una vez creados estos
 const {getAllCards, insertCard, updateCard, deleteCard} = require ('../controllers/card.controller');
 
-const {  multerMiddleware  } = require( '../middlewares/upload-file.middleware.js' );
+const {  multerMiddleware  } = require( '../middlewares/upload-file-2.middleware' );
 
 const testUpload = (req, res, next) => {
   multerMiddleware.single('urlImage')(req, res, (err) => {

@@ -8,7 +8,7 @@ const { generateToken } = require ('../helpers/jwt.js');
 
 const {getQuestions, createQuestion, updateQuestion, removeQuestion } = require('../services/questions.service.js'); 
 
-const { PATH_STORAGE } = require( '../middlewares/upload-file.middleware.js' );
+const { PATH_STORAGE } = require( '../middlewares/upload-file-2.middleware.js' );
 
 
 // TODO: verificar despues de creado el controlador este conectado con las rutas

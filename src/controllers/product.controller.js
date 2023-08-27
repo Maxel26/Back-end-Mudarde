@@ -7,6 +7,10 @@ const { insertProduct, getAllProducts, getProductByID, updateProductByID, remove
 const User = require( '../models/User' );
 const { PATH_STORAGE } = require('../middlewares/upload-file-2.middleware.js');
 const path = require('path');
+const fs = require('fs');
+
+const { promisify } = require('util');
+const unlinkAsync = promisify(fs.unlink);
 
 
 
@@ -258,13 +262,36 @@ const deleteProduct = async ( req = request, res = response ) => {
     const productId = req.params.id;
 
     try {
-        const data = await removeProductByID( productId );
+        const foundProduct = await getProductByID(productId);
+        if(!foundProduct){
+
+            return res.status( 404 ).json({
+                ok: false,
+                path: `/products/${ productId }`,
+                msg: 'no encontro el producto'
+            }); 
+        } 
+        let data = '' ;
+        const fileName = path.basename(foundProduct.urlImage);
+
+        if( foundProduct.urlImage || fileName){
+            const filePath = path.join(__dirname,'../../public/uploads', fileName) ;
+
+            console.log(filePath);
+
+             // Elimina el archivo
+            await unlinkAsync(filePath);
+            data = await removeProductByID( productId );
+        }
+        else {
+            data = await removeProductByID( productId );
+        }
 
         res.status( 201 ).json({
             ok: true,
             path: `/products/${ productId }`,
-            msg: 'Eliminar producto',
-            product: data
+            msg: 'Eliminar producto'
+            // product: data
         }); 
     } 
     catch ( error ) {

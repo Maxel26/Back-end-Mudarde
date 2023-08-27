@@ -7,7 +7,7 @@ const { generateToken } = require( '../helpers/jwt.js' );
 // TODO: completar esta variable con los servicios una vez esten creados los servicios
 const {getCards, createCard, reviseCard, removeCard} = require ('../services/card.service.js');
 
-const { PATH_STORAGE } = require( '../middlewares/upload-file.middleware.js' );
+const { PATH_STORAGE } = require( '../middlewares/upload-file-2.middleware.js' );
 
 const User = require('../models/User.js');
 
